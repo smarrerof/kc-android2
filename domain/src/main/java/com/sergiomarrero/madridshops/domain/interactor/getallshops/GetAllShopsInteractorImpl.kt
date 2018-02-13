@@ -16,12 +16,13 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
     private val repository: Repository = RepositoryImpl(weakContext.get()!!)
 
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
-           repository.getAllShops({
-               val shops: Shops = entityMapper(it)
-               success.successCompletion(shops)
-           }, {
-             error(it)
-           })
+        Log.e("App", "GetAllShopsInteractorImpl:execute")
+        repository.getAllShops({
+            val shops: Shops = entityMapper(it)
+            success.successCompletion(shops)
+        }, {
+            error(it)
+        })
     }
 
     private fun entityMapper(list: List<ShopEntity>): Shops {

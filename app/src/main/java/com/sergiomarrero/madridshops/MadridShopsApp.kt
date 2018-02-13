@@ -8,6 +8,7 @@ import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.interactor.deleteallshops.DeleteAllShopsImpl
 import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
 import com.sergiomarrero.madridshops.domain.model.Shops
+import com.squareup.picasso.Picasso
 
 
 class MadridShopsApp: MultiDexApplication() {
@@ -18,7 +19,13 @@ class MadridShopsApp: MultiDexApplication() {
         // Init code
         Log.d("App", "MadridShopsApp:onCreate")
 
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
+        // Init Picasso
+        if (BuildConfig.DEBUG) {
+            Picasso.with(this).setIndicatorsEnabled(true)
+            Picasso.with(this).isLoggingEnabled = true
+        }
+
+        /*val allShopsInteractor = GetAllShopsInteractorImpl(this)
         allShopsInteractor.execute(object: SuccessCompletion<Shops> {
             override fun successCompletion(shops: Shops) {
                 Log.d("App", "Shops ${shops.count()}")
@@ -28,7 +35,7 @@ class MadridShopsApp: MultiDexApplication() {
             override fun errorCompletion(errorMessage: String) {
                 Log.d("App", errorMessage)
             }
-        })
+        })*/
 
         /*DeleteAllShopsImpl(this).execute({
             Log.d("App", "DeleteAllShopsImpl success")

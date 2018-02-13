@@ -24,6 +24,7 @@ import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractor
 import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
+import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
 import com.sergiomarrero.madridshops.fragment.ListFragment
 import com.sergiomarrero.madridshops.fragment.MapFragment
@@ -31,7 +32,12 @@ import com.sergiomarrero.madridshops.router.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
+
+    override fun onItemSelected(shop: Shop) {
+        Toast.makeText(this, "Shop selected ${shop.name}", Toast.LENGTH_SHORT)
+            .show()
+    }
 
     lateinit var mapFragment: SupportMapFragment
     lateinit var listFragment: ListFragment
@@ -96,10 +102,13 @@ class MainActivity : AppCompatActivity() {
             override fun successCompletion(shops: Shops) {
                 //mapFragmentInmutable.setShops(shops)
                 initializeMap(shops)
+
+                listFragment.setShops(shops)
             }
         }, object: ErrorCompletion {
             override fun errorCompletion(errorMessage: String) {
                 Toast.makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }

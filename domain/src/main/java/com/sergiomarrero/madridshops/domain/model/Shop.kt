@@ -1,5 +1,7 @@
 package com.sergiomarrero.madridshops.domain.model
 
+import java.io.Serializable
+
 
 /**
  * Shop: Represents one Shop
@@ -20,7 +22,7 @@ data class Shop(val id: Int,
 
                 val latitude: Double,
                 val longitude: Double
-) {
+): Serializable {
 
     init {
         Shops(ArrayList<Shop>())

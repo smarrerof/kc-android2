@@ -34,11 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
 
-    override fun onItemSelected(shop: Shop) {
-        Toast.makeText(this, "Shop selected ${shop.name}", Toast.LENGTH_SHORT)
-            .show()
-    }
-
     lateinit var mapFragment: SupportMapFragment
     lateinit var listFragment: ListFragment
     lateinit var map: GoogleMap
@@ -86,6 +81,10 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }*/
+    }
+
+    override fun onItemSelected(shop: Shop) {
+        Router().navigateToShopActivity(this, shop)
     }
 
     private fun addAllPins(shops: Shops) {

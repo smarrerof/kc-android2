@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.activity.ShopRecyclerViewAdapter
+import com.sergiomarrero.madridshops.adapter.ShopRecyclerViewAdapter
 import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
 import kotlinx.android.synthetic.main.fragment_list.*

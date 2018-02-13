@@ -4,7 +4,24 @@ package com.sergiomarrero.madridshops.domain.model
 /**
  * Shop: Represents one Shop
  */
-data class Shop(val id: Int, val name: String, val address: String) {
+data class Shop(val id: Int,
+                val name: String,
+
+                val image: String,
+                val logoImage: String,
+
+                val openingHoursEn: String,
+                val openingHoursEs: String,
+
+                val address: String,
+
+                val descriptionEn: String,
+                val descriptionEs: String,
+
+                val latitude: Double,
+                val longitude: Double
+) {
+
     init {
         Shops(ArrayList<Shop>())
     }

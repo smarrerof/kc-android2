@@ -1,6 +1,7 @@
 package com.sergiomarrero.madridshops.domain.interactor.getallshops
 
 import android.content.Context
+import android.util.Log
 import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.model.Shop
@@ -27,11 +28,31 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
         val tempList = ArrayList<Shop>()
 
         list.forEach({
-            val shop = Shop(it.id.toInt(), it.name, it.address)
-            tempList.add(shop)
+            try {
+                val shop = Shop(it.id.toInt(),
+                        it.name,
+                        it.image,
+                        it.logoImage,
+                        it.openingHoursEn,
+                        it.openingHoursEs,
+                        it.address,
+                        it.descriptionEn,
+                        it.descriptionEs,
+                        stringToDouble(it.latitude),
+                        stringToDouble(it.longitude))
+                tempList.add(shop)
+            } catch (e: Exception) {
+                // Do nothing
+                Log.e("App", "Error parsing shop ${it.name} (id, ${it.id}) with position (${it.latitude}, ${it.longitude})")
+            }
         })
 
         val shops = Shops(tempList)
         return shops
+    }
+
+    private fun stringToDouble(value: String): Double {
+        val newValue = value.replace(",", "").replace(" ", "")
+        return newValue.toDouble()
     }
 }

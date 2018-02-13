@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addAllPins(shops: Shops) {
         shops.shops.forEach {
-            addPin(map, 40.416775, -3.703790, it.name)
+            addPin(map, it.latitude, it.longitude, it.name)
         }
     }
 

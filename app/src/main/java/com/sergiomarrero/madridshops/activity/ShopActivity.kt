@@ -43,8 +43,7 @@ class ShopActivity : AppCompatActivity() {
 
         Picasso
                 .with(this)
-                .load("http://maps.googleapis.com/maps/api/staticmap?\n" +
-                        "center=${shop.latitude},${shop.longitude}&zoom=17&size=${deviceWidth}x${height}&scale=2")
+                .load("http://maps.googleapis.com/maps/api/staticmap?center=${shop.latitude},${shop.longitude}&zoom=17&size=${deviceWidth}x${height}&scale=2")
                 .into(imageMapView)
     }
 

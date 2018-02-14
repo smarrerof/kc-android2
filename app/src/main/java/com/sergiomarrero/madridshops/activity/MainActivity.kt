@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sergiomarrero.madridshops.Manifest
 import com.sergiomarrero.madridshops.R
+import com.sergiomarrero.madridshops.adapter.ShopInfoWindowAdapter
 import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractor
@@ -87,12 +88,6 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
         Router().navigateToShopActivity(this, shop)
     }
 
-    private fun addAllPins(shops: Shops) {
-        shops.shops.forEach {
-            addPin(map, it.latitude, it.longitude, it.name)
-        }
-    }
-
 
     private fun setupMap() {
         val mapFragmentInmutable = mapFragment
@@ -119,10 +114,16 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
             it.uiSettings.isRotateGesturesEnabled = false
             it.uiSettings.isZoomControlsEnabled = true
             showUserPosition(baseContext, it)
+            it.setInfoWindowAdapter(ShopInfoWindowAdapter(this))
 
             map = it
 
             addAllPins(shops)
+
+            it.setOnInfoWindowClickListener {
+                var shop = it.tag as Shop
+                Router().navigateToShopActivity(this, shop)
+            }
         }
     }
 
@@ -147,8 +148,18 @@ class MainActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
         }
     }
 
-    private fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {
-        val coordinate = LatLng(latitude, longitude)
-        map.addMarker(MarkerOptions().position(coordinate).title(title))
+    private fun addAllPins(shops: Shops) {
+        shops.shops.forEach {
+            addPin(map, it)
+        }
+    }
+
+    private fun addPin(map: GoogleMap, shop: Shop) {
+        val coordinate = LatLng(shop.latitude, shop.longitude)
+        val markerOptions = MarkerOptions()
+                .position(coordinate)
+                .title(shop.name)
+        val marker = map.addMarker(markerOptions)
+        marker.tag = shop
     }
 }

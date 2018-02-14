@@ -68,10 +68,8 @@ class ListFragment : Fragment() {
             if(shop != null) {
                 onItemSelectedListener?.onItemSelected(shop)
             }
-
         }
     }
-
 
     interface OnItemSelectedListener {
         fun onItemSelected(shop: Shop)

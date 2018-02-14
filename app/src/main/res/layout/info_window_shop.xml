@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/imageLogo"
+        android:paddingStart="8dp"
+        tools:text="Shop name" />
+
+    <TextView
+        android:id="@+id/textOpeningHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageLogo"
+        android:layout_below="@id/textName"
+        android:paddingTop="8dp"
+        android:paddingStart="8dp"
+        tools:text="Shop opening hours" />
+
+</RelativeLayout>

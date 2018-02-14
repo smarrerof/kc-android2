@@ -10,7 +10,7 @@ import com.sergiomarrero.madridshops.router.Router.Companion.INTENT_SHOP
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_shop.*
 import android.util.DisplayMetrics
-
+import android.view.MenuItem
 
 
 class ShopActivity : AppCompatActivity() {
@@ -21,6 +21,10 @@ class ShopActivity : AppCompatActivity() {
 
         // Get shop from intent
         val shop = intent.getSerializableExtra(INTENT_SHOP) as Shop
+
+        // Configure UI
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = shop.name
 
         // Calculate map image dimensions
         val deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels
@@ -42,6 +46,17 @@ class ShopActivity : AppCompatActivity() {
                 .load("http://maps.googleapis.com/maps/api/staticmap?\n" +
                         "center=${shop.latitude},${shop.longitude}&zoom=17&size=${deviceWidth}x${height}&scale=2")
                 .into(imageMapView)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     fun convertDpToPixel(context: Context, dp: Float): Float {

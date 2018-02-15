@@ -17,7 +17,6 @@ import org.junit.runner.RunWith
 class VolleyTests {
     val appContext = InstrumentationRegistry.getTargetContext()
 
-
     @Test
     @Throws(Exception::class)
     fun given_valid_url_it_gets_non_null_json_as_string() {

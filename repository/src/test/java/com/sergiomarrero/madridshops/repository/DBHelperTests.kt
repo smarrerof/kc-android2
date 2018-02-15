@@ -12,6 +12,7 @@ class DBHelperTests {
         assertEquals(0, convert(false).toLong())
     }
 
+    @Test @Throws(Exception::class)
     fun given_true_converts_to_1() {
         assertEquals(1, convert(true).toLong())
     }

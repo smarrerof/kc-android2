@@ -30,14 +30,16 @@ class ShopDAOTests {
 
         val shopEntity = ShopEntity(1,
                 1,
-                "Shop 1",
-                "Description 1",
-                1.0f,
-                1.0f,
-                "",
-                "",
-                "Opening hours 1",
-                "Address 1")
+                "name",
+                "image",
+                "logo image",
+                "opening hours en",
+                "opening hours es",
+                "address",
+                "description en",
+                "description es",
+                "1.0",
+                "1.0")
 
         val shopEntityDAO = ShopDAO(dbHelper)
         val id = shopEntityDAO.insert(shopEntity)
@@ -58,25 +60,29 @@ class ShopDAOTests {
 
         val shopEntity1 = ShopEntity(1,
                 1,
-                "Shop 1",
-                "Description 1",
-                1.0f,
-                1.0f,
-                "",
-                "",
-                "Opening hours 1",
-                "Address 1")
+                "name",
+                "image",
+                "logo image",
+                "opening hours en",
+                "opening hours es",
+                "address",
+                "description en",
+                "description es",
+                "1.0",
+                "1.0")
 
         val shopEntity2 = ShopEntity(1,
                 1,
-                "Shop 1",
-                "Description 2",
-                1.0f,
-                1.0f,
-                "",
-                "",
-                "Opening hours 2",
-                "Address 2")
+                "name",
+                "image",
+                "logo image",
+                "opening hours en",
+                "opening hours es",
+                "address",
+                "description en",
+                "description es",
+                "1.0",
+                "1.0")
 
         val id1 = shopEntityDAO.insert(shopEntity1)
         val id2 = shopEntityDAO.insert(shopEntity2)

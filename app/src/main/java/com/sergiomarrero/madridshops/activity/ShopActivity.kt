@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_shop.*
 import android.util.DisplayMetrics
 import android.view.MenuItem
+import com.sergiomarrero.madridshops.util.TranslationManager
 
 
 class ShopActivity : AppCompatActivity() {
@@ -37,9 +38,9 @@ class ShopActivity : AppCompatActivity() {
                 .into(imageView)
 
         textName.text =  shop.name
-        textDescription.text = shop.descriptionEn
+        textDescription.text = TranslationManager.getDescription(shop)
         textAddress.text = shop.address
-        textOpeningHours.text = shop.openingHoursEn
+        textOpeningHours.text = TranslationManager.getOpeningHours(shop)
 
         Picasso
                 .with(this)

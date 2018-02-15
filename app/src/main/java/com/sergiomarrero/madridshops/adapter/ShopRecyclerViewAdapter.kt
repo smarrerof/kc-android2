@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.sergiomarrero.madridshops.R
 import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.util.TranslationManager
 import com.squareup.picasso.Picasso
 
 
@@ -29,7 +30,7 @@ class ShopRecyclerViewAdapter(val shops: Shops?): RecyclerView.Adapter<ShopRecyc
                 .into(image)
 
             name.text = shop.name
-            openingHours.text = shop.openingHoursEn
+            openingHours.text = TranslationManager.getOpeningHours(shop)
         }
     }
 

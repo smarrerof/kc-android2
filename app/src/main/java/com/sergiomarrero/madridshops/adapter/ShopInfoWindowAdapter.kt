@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.sergiomarrero.madridshops.R
 import com.sergiomarrero.madridshops.domain.model.Shop
+import com.sergiomarrero.madridshops.util.TranslationManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.info_window_shop.view.*
@@ -27,7 +28,7 @@ class ShopInfoWindowAdapter(val context: Context): GoogleMap.InfoWindowAdapter  
                 .into(view.imageLogo, MarkerCallback(marker, context, shop.logoImage,view.imageLogo))
 
         view.textName.text = shop.name
-        view.textOpeningHours.text = shop.openingHoursEn
+        view.textOpeningHours.text = TranslationManager.getOpeningHours(shop)
 
         return view
     }

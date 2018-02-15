@@ -6,23 +6,22 @@ import java.io.Serializable
 /**
  * Shop: Represents one Shop
  */
-data class Shop(val id: Int,
-                val name: String,
+data class Shop(override val id: Int,
+                override val name: String,
 
-                val image: String,
-                val logoImage: String,
+                override val image: String,
+                override val logoImage: String,
 
-                val openingHoursEn: String,
-                val openingHoursEs: String,
+                override val openingHoursEn: String,
+                override val openingHoursEs: String,
 
-                val address: String,
+                override val address: String,
 
-                val descriptionEn: String,
-                val descriptionEs: String,
+                override val descriptionEn: String,
+                override val descriptionEs: String,
 
-                val latitude: Double,
-                val longitude: Double
-): Serializable {
+                override val latitude: Double,
+                override val longitude: Double): IModel, Serializable {
 
     init {
         Shops(ArrayList<Shop>())

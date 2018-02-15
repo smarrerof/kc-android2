@@ -2,13 +2,8 @@ package com.sergiomarrero.madridshops
 
 import android.support.multidex.MultiDexApplication
 import android.util.Log
-import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
-import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractorFakeImpl
-import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
-import com.sergiomarrero.madridshops.domain.interactor.deleteallshops.DeleteAllShopsImpl
-import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
-import com.sergiomarrero.madridshops.domain.model.Shops
 import com.squareup.picasso.Picasso
+import java.util.*
 
 
 class MadridShopsApp: MultiDexApplication() {
@@ -17,7 +12,7 @@ class MadridShopsApp: MultiDexApplication() {
         super.onCreate()
 
         // Init code
-        Log.d("App", "MadridShopsApp:onCreate")
+        Log.d("App", "MadridShopsApp:onCreate ${Locale.getDefault().getLanguage()}")
 
         // Init Picasso
         if (BuildConfig.DEBUG) {

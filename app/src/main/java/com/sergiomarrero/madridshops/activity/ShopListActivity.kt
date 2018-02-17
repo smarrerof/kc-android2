@@ -26,12 +26,15 @@ import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsIn
 import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
 import com.sergiomarrero.madridshops.fragment.ListFragment
+import com.sergiomarrero.madridshops.fragment.MapFragment
 import com.sergiomarrero.madridshops.router.Router
 
 
-class ShopListActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
+class ShopListActivity : AppCompatActivity(),
+        ListFragment.OnListItemSelectedListener,
+        MapFragment.OnMapItemSelectedListener {
 
-    lateinit var mapFragment: SupportMapFragment
+    lateinit var mapFragment: MapFragment
     lateinit var listFragment: ListFragment
     lateinit var map: GoogleMap
 
@@ -41,12 +44,11 @@ class ShopListActivity : AppCompatActivity(), ListFragment.OnItemSelectedListene
 
         Log.d("App", "ShopListActivity:onCreate")
 
-        mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as MapFragment
         listFragment = supportFragmentManager.findFragmentById(R.id.listFragment) as ListFragment
 
-        setupMap()
+        loadShops()
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -71,86 +73,49 @@ class ShopListActivity : AppCompatActivity(), ListFragment.OnItemSelectedListene
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
-                Router().navigateFromMainActivityToPicassoActivity(this)
+                //Router().navigateFromMainActivityToPicassoActivity(this)
+
+                val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
+                getAllShopsInteractor.execute(object: SuccessCompletion<Shops> {
+                    override fun successCompletion(shops: Shops) {
+                        mapFragment.setShops(shops)
+                        listFragment.setShops(shops)
+                    }
+                }, object: ErrorCompletion {
+                    override fun errorCompletion(errorMessage: String) {
+                        Toast.makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+                })
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun onItemSelected(shop: Shop) {
+    override fun onListItemSelected(shop: Shop) {
+        Router().navigateToShopDetailActivity(this, shop)
+    }
+
+    override fun onMapItemSelected(shop: Shop) {
         Router().navigateToShopDetailActivity(this, shop)
     }
 
 
-    private fun setupMap() {
+    private fun loadShops() {
         val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops> {
             override fun successCompletion(shops: Shops) {
-                initializeMap(shops)
+                mapFragment.setShops(shops)
                 listFragment.setShops(shops)
             }
         }, object: ErrorCompletion {
             override fun errorCompletion(errorMessage: String) {
-                Toast.makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
+                Toast
+                    .makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
                     .show()
             }
         })
-    }
-
-    private fun initializeMap(shops: Shops) {
-        mapFragment.getMapAsync {
-            Log.d("App", "Habemus mapa!")
-            centerMapInPosition(it, 40.416775, -3.703790)
-            it.uiSettings.isRotateGesturesEnabled = false
-            it.uiSettings.isZoomControlsEnabled = true
-            showUserPosition(baseContext, it)
-            it.setInfoWindowAdapter(ShopInfoWindowAdapter(this))
-
-            map = it
-
-            addAllPins(shops)
-
-            it.setOnInfoWindowClickListener {
-                var shop = it.tag as Shop
-                Router().navigateToShopDetailActivity(this, shop)
-            }
-        }
-    }
-
-    private fun centerMapInPosition(map: GoogleMap, latitude: Double, longitude: Double) {
-        val coordinate = LatLng(latitude, longitude)
-        val cameraPosition = CameraPosition.Builder()
-                .target(coordinate)
-                .zoom(13f)
-                .build()
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
-    private fun showUserPosition(context: Context, map: GoogleMap) {
-        if (ActivityCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,  arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 10)
-
-            return
-        }
-    }
-
-    private fun addAllPins(shops: Shops) {
-        shops.shops.forEach {
-            addPin(map, it)
-        }
-    }
-
-    private fun addPin(map: GoogleMap, shop: Shop) {
-        val coordinate = LatLng(shop.latitude, shop.longitude)
-        val markerOptions = MarkerOptions()
-                .position(coordinate)
-                .title(shop.name)
-        val marker = map.addMarker(markerOptions)
-        marker.tag = shop
     }
 }

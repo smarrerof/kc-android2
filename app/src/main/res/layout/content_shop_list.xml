@@ -9,20 +9,28 @@
     tools:showIn="@layout/activity_shop_list"
     android:orientation="vertical">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        tools:background="@color/colorPrimary" /> -->
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.sergiomarrero.madridshops.fragment.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:background="@color/colorPrimary" />
 
     <fragment
         android:id="@+id/listFragment"
         android:name="com.sergiomarrero.madridshops.fragment.ListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        tools:background="@color/colorAccent" />
 
 </LinearLayout>

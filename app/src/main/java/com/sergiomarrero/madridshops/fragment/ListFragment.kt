@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class ListFragment : Fragment() {
 
     lateinit var root: View
-    private var onItemSelectedListener: OnItemSelectedListener? = null
+    private var onListItemSelectedListener: OnListItemSelectedListener? = null
     private var shops: Shops? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -35,15 +35,16 @@ class ListFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnItemSelectedListener) {
-            onItemSelectedListener = context
+        if (context is OnListItemSelectedListener) {
+            onListItemSelectedListener = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        onItemSelectedListener = null
+        onListItemSelectedListener = null
     }
+
 
     fun setShops(shops: Shops) {
         this.shops = shops
@@ -53,6 +54,7 @@ class ListFragment : Fragment() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         setAdapter()
     }
+
 
     private fun setAdapter() {
         // Set the adapter
@@ -66,13 +68,13 @@ class ListFragment : Fragment() {
             val shop = shops?.get(position)
 
             if(shop != null) {
-                onItemSelectedListener?.onItemSelected(shop)
+                onListItemSelectedListener?.onListItemSelected(shop)
             }
         }
     }
 
-    interface OnItemSelectedListener {
-        fun onItemSelected(shop: Shop)
-    }
 
+    interface OnListItemSelectedListener {
+        fun onListItemSelected(shop: Shop)
+    }
 }// Required empty public constructor

@@ -12,24 +12,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    var isConnected = false
     var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        configureUI(false)
-        checkInternetStatus()
-
         buttonShopList.setOnClickListener {
             Router().navigateToShopListActivity(this)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkInternetStatus()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         this.menu = menu
         menuInflater.inflate(R.menu.menu_main, menu)
+        menu.findItem(R.id.action_retry)?.isVisible = !isConnected
         return true
     }
 
@@ -48,15 +52,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkInternetStatus() {
         InternetStatusInteractorImpl().execute(this, {
-            configureUI(true)
+            isConnected = true
+            configureUI()
         }, {
-            configureUI(false)
+            isConnected = false
+            configureUI()
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
     }
 
 
-    private fun configureUI(isConnected: Boolean) {
+    private fun configureUI() {
         if (menu != null) {
             menu?.findItem(R.id.action_retry)?.isVisible = !isConnected
         }

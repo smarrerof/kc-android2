@@ -27,7 +27,6 @@ import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
 import com.sergiomarrero.madridshops.fragment.ListFragment
 import com.sergiomarrero.madridshops.router.Router
-import kotlinx.android.synthetic.main.activity_shop_list.*
 
 
 class ShopListActivity : AppCompatActivity(), ListFragment.OnItemSelectedListener {
@@ -62,7 +61,7 @@ class ShopListActivity : AppCompatActivity(), ListFragment.OnItemSelectedListene
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_shop_list, menu)
         return true
     }
 

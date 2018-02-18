@@ -5,34 +5,31 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.sergiomarrero.madridshops.repository.db.DBConstants
 import com.sergiomarrero.madridshops.repository.db.DBHelper
-import com.sergiomarrero.madridshops.repository.model.ShopEntity
+import com.sergiomarrero.madridshops.repository.model.Entity
 import java.util.ArrayList
 
 
-class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
+class EntityDAO(val dbHelper: DBHelper): DAOPersistable<Entity> {
 
     private val dbReadOnlyConection: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteConnection: SQLiteDatabase = dbHelper.writableDatabase
 
-    override fun query(id: Long): ShopEntity {
-        val cursor = queryWithCursor(id)
+    override fun query(id: Long): Entity {
+        val cursor = queryWithCursor(
+                "${DBConstants.KEY_SHOP_DATABASE_ID} = ?",
+                arrayOf(id.toString()))
 
         cursor.moveToFirst()
 
         return entityFromCursor(cursor)!!
     }
 
-    override fun query(type: Int): List<ShopEntity> {
-        val queryResult = ArrayList<ShopEntity>()
+    override fun query(type: Int): List<Entity> {
+        val cursor = queryWithCursor(
+                "${DBConstants.KEY_SHOP_TYPE} = ?",
+                arrayOf(type.toString()))
 
-        val cursor = dbReadOnlyConection.query(DBConstants.TABLE_SHOP,
-                DBConstants.ALL_COLUMNS,
-                null,
-                null,
-                "",
-                "",
-                DBConstants.KEY_SHOP_DATABASE_ID)
-
+        val queryResult = ArrayList<Entity>()
         while(cursor.moveToNext()) {
             val shopEntity = entityFromCursor(cursor)
             queryResult.add(shopEntity!!)
@@ -41,28 +38,17 @@ class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         return queryResult
     }
 
-    private fun queryWithCursor(id: Long): Cursor {
-        return dbReadOnlyConection.query(DBConstants.TABLE_SHOP,
-            DBConstants.ALL_COLUMNS,
-            "${DBConstants.KEY_SHOP_DATABASE_ID} = ?",
-            arrayOf(id.toString()),
-            "",
-            "",
-            DBConstants.KEY_SHOP_DATABASE_ID
-        )
-    }
-
-    override fun insert(element: ShopEntity): Long {
+    override fun insert(element: Entity): Long {
         var id: Long = 0
 
         id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP,
-            null,
-            contentValues(element))
+                null,
+                contentValues(element))
 
         return id
     }
 
-    override fun update(id: Long, element: ShopEntity): Long {
+    override fun update(id: Long, element: Entity): Long {
         val rowsAffected = dbReadWriteConnection.update(DBConstants.TABLE_SHOP,
                 contentValues(element),
                 "${DBConstants.KEY_SHOP_DATABASE_ID} = ?",
@@ -71,7 +57,7 @@ class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         return rowsAffected.toLong()
     }
 
-    override fun delete(element: ShopEntity): Long {
+    override fun delete(element: Entity): Long {
         if (element.databaseId > 1) return 0
 
         return delete(element.databaseId)
@@ -79,8 +65,8 @@ class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
 
     override fun delete(id: Long): Long {
         return dbReadWriteConnection.delete(DBConstants.TABLE_SHOP,
-            "${DBConstants.KEY_SHOP_DATABASE_ID} = ?",
-            arrayOf(id.toString())).toLong()
+                "${DBConstants.KEY_SHOP_DATABASE_ID} = ?",
+                arrayOf(id.toString())).toLong()
     }
 
     override fun deleteAll(): Boolean {
@@ -89,10 +75,23 @@ class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
                 null).toLong() >= 0
     }
 
-    fun contentValues(shopEntity: ShopEntity): ContentValues {
+
+    private fun queryWithCursor(selection: String, selectionArgs: Array<String>): Cursor {
+        return dbReadOnlyConection.query(DBConstants.TABLE_SHOP,
+                DBConstants.ALL_COLUMNS,
+                selection,
+                selectionArgs,
+                "",
+                "",
+                DBConstants.KEY_SHOP_DATABASE_ID
+        )
+    }
+
+    private fun contentValues(shopEntity: Entity): ContentValues {
         val content = ContentValues()
 
         content.put(DBConstants.KEY_SHOP_ID_JSON, shopEntity.id)
+        content.put(DBConstants.KEY_SHOP_TYPE, shopEntity.type)
         content.put(DBConstants.KEY_SHOP_NAME, shopEntity.name)
 
         content.put(DBConstants.KEY_SHOP_IMAGE_URL, shopEntity.image)
@@ -112,12 +111,13 @@ class ShopDAO(val dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         return content
     }
 
-    fun entityFromCursor(cursor: Cursor): ShopEntity? {
+    private fun entityFromCursor(cursor: Cursor): Entity? {
         if (cursor.isAfterLast || cursor.isBeforeFirst) return null
 
-        return ShopEntity(
+        return Entity(
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_ID_JSON)),
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_DATABASE_ID)),
+                cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_SHOP_TYPE)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),
 
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_IMAGE_URL)),

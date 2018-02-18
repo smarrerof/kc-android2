@@ -6,8 +6,8 @@ import java.io.Serializable
 /**
  * Shop: Represents one Shop
  */
-data class Shop(override val id: Int,
-                override val type: Type = Type.SHOP,
+data class Model(override val id: Int,
+                 override val type: Type,
                 override val name: String,
 
                 override val image: String,
@@ -33,28 +33,28 @@ data class Shop(override val id: Int,
 /**
  * Shops:
  */
-class Shops(val shops: MutableList<Shop>): Aggregate<Shop> {
+class Models(val models: MutableList<Model>): Aggregate<Model> {
     override fun count(): Int {
-        return shops.count()
+        return models.count()
     }
 
-    override fun all(): List<Shop> {
-        return shops
-     }
-
-    override fun get(position: Int): Shop {
-        return shops[position]
+    override fun all(): List<Model> {
+        return models
     }
 
-    override fun add(element: Shop) {
-        shops.add(element)
+    override fun get(position: Int): Model {
+        return models[position]
+    }
+
+    override fun add(element: Model) {
+        models.add(element)
     }
 
     override fun delete(position: Int) {
-        shops.removeAt(position)
+        models.removeAt(position)
     }
 
-    override fun delete(element: Shop) {
-        shops.remove(element)
+    override fun delete(element: Model) {
+        models.remove(element)
     }
 }

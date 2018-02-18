@@ -1,30 +1,18 @@
 package com.sergiomarrero.madridshops.activity
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.adapter.ShopInfoWindowAdapter
 import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
-import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractor
-import com.sergiomarrero.madridshops.domain.interactor.getallshops.GetAllShopsInteractorImpl
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.domain.interactor.getallmodels.GetAllModelsInteractor
+import com.sergiomarrero.madridshops.domain.interactor.getallmodels.GetAllModelsInteractorImpl
+import com.sergiomarrero.madridshops.domain.model.*
 import com.sergiomarrero.madridshops.fragment.ListFragment
 import com.sergiomarrero.madridshops.fragment.MapFragment
 import com.sergiomarrero.madridshops.router.Router
@@ -73,38 +61,24 @@ class ShopListActivity : AppCompatActivity(),
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
-                //Router().navigateFromMainActivityToPicassoActivity(this)
-
-                val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
-                getAllShopsInteractor.execute(object: SuccessCompletion<Shops> {
-                    override fun successCompletion(shops: Shops) {
-                        mapFragment.setShops(shops)
-                        listFragment.setShops(shops)
-                    }
-                }, object: ErrorCompletion {
-                    override fun errorCompletion(errorMessage: String) {
-                        Toast.makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
-                                .show()
-                    }
-                })
-
+                Router().navigateFromMainActivityToPicassoActivity(this)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun onListItemSelected(shop: Shop) {
-        Router().navigateToShopDetailActivity(this, shop)
+    override fun onListItemSelected(model: Model) {
+        Router().navigateToShopDetailActivity(this, model)
     }
 
-    override fun onMapItemSelected(shop: Shop) {
-        Router().navigateToShopDetailActivity(this, shop)
+    override fun onMapItemSelected(model: Model) {
+        Router().navigateToShopDetailActivity(this, model)
     }
 
 
     private fun loadShops() {
-        val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
+        /*val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops> {
             override fun successCompletion(shops: Shops) {
                 mapFragment.setShops(shops)
@@ -115,6 +89,21 @@ class ShopListActivity : AppCompatActivity(),
                 Toast
                     .makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
                     .show()
+            }
+        })*/
+
+        val getAllModelsInteractor: GetAllModelsInteractor = GetAllModelsInteractorImpl(this)
+        getAllModelsInteractor.execute(Type.SHOP, object: SuccessCompletion<Models> {
+            override fun successCompletion(models: Models) {
+                Log.d("App", "Models loaded")
+                mapFragment.setShops(models)
+                listFragment.setShops(models)
+            }
+        }, object: ErrorCompletion {
+            override fun errorCompletion(errorMessage: String) {
+                Toast
+                        .makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
+                        .show()
             }
         })
     }

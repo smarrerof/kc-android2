@@ -20,10 +20,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.adapter.ShopInfoWindowAdapter
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.domain.model.Shops
-import kotlinx.android.synthetic.main.fragment_map.*
+import com.sergiomarrero.madridshops.adapter.ModelInfoWindowAdapter
+import com.sergiomarrero.madridshops.domain.model.Model
+import com.sergiomarrero.madridshops.domain.model.Models
 
 
 /**
@@ -34,7 +33,7 @@ class MapFragment : Fragment() {
     lateinit var root: View
     lateinit var mapFragment: SupportMapFragment
     private var onMapItemSelectedListener: OnMapItemSelectedListener? = null
-    private var shops: Shops? = null
+    private var models: Models? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,26 +58,26 @@ class MapFragment : Fragment() {
     }
 
 
-    fun setShops(shops: Shops) {
-        this.shops = shops
-        initializeMap(shops)
+    fun setShops(models: Models) {
+        this.models = models
+        initializeMap(models)
     }
 
 
-    private fun initializeMap(shops: Shops) {
+    private fun initializeMap(models: Models) {
         mapFragment.getMapAsync {
             Log.d("App", "Habemus mapa!")
             centerMapInPosition(it, 40.416775, -3.703790)
             it.uiSettings.isRotateGesturesEnabled = false
             it.uiSettings.isZoomControlsEnabled = true
             showUserPosition(root.context, it)
-            it.setInfoWindowAdapter(ShopInfoWindowAdapter(root.context))
+            it.setInfoWindowAdapter(ModelInfoWindowAdapter(root.context))
 
-            addAllPins(it, shops)
+            addAllPins(it, models)
 
             it.setOnInfoWindowClickListener {
-                var shop = it.tag as Shop
-                onMapItemSelectedListener?.onMapItemSelected(shop)
+                var model = it.tag as Model
+                onMapItemSelectedListener?.onMapItemSelected(model)
             }
         }
     }
@@ -104,23 +103,23 @@ class MapFragment : Fragment() {
         }
     }
 
-    private fun addAllPins(map: GoogleMap, shops: Shops) {
-        shops.shops.forEach {
+    private fun addAllPins(map: GoogleMap, models: Models) {
+        models.all().forEach {
             addPin(map, it)
         }
     }
 
-    private fun addPin(map: GoogleMap, shop: Shop) {
-        val coordinate = LatLng(shop.latitude, shop.longitude)
+    private fun addPin(map: GoogleMap, model: Model) {
+        val coordinate = LatLng(model.latitude, model.longitude)
         val markerOptions = MarkerOptions()
                 .position(coordinate)
-                .title(shop.name)
+                .title(model.name)
         val marker = map.addMarker(markerOptions)
-        marker.tag = shop
+        marker.tag = model
     }
 
 
     interface OnMapItemSelectedListener {
-        fun onMapItemSelected(shop: Shop)
+        fun onMapItemSelected(model: Model)
     }
 }// Required empty public constructor

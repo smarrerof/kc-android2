@@ -5,8 +5,8 @@ import android.database.Cursor
 
 interface DAOReadOperations<T> {
     fun query(id: Long): T
-    fun query(): List<T>
-    fun queryWithCursor(id: Long): Cursor
+    fun query(type: Int): List<T>
+    //fun queryWithCursor(id: Long): Cursor
 }
 
 interface DAOWriteOperation<T> {

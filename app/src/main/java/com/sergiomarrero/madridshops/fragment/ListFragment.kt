@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.adapter.ShopRecyclerViewAdapter
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.adapter.ModelRecyclerViewAdapter
+import com.sergiomarrero.madridshops.domain.model.Models
+import com.sergiomarrero.madridshops.domain.model.Model
 import kotlinx.android.synthetic.main.fragment_list.*
 
 
@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
 
     lateinit var root: View
     private var onListItemSelectedListener: OnListItemSelectedListener? = null
-    private var shops: Shops? = null
+    private var models: Models? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,8 +46,8 @@ class ListFragment : Fragment() {
     }
 
 
-    fun setShops(shops: Shops) {
-        this.shops = shops
+    fun setShops(models: Models) {
+        this.models = models
 
         // Configure recyclerView
         recyclerView.layoutManager = LinearLayoutManager(root.context)
@@ -58,23 +58,23 @@ class ListFragment : Fragment() {
 
     private fun setAdapter() {
         // Set the adapter
-        val adapter = ShopRecyclerViewAdapter(shops)
+        val adapter = ModelRecyclerViewAdapter(models)
         recyclerView.adapter = adapter
 
         // Handle click
         adapter.onClickListener = View.OnClickListener { v: View? ->
             // Get selected shop
             val position = recyclerView.getChildAdapterPosition(v)
-            val shop = shops?.get(position)
+            val model = models?.get(position)
 
-            if(shop != null) {
-                onListItemSelectedListener?.onListItemSelected(shop)
+            if(model != null) {
+                onListItemSelectedListener?.onListItemSelected(model)
             }
         }
     }
 
 
     interface OnListItemSelectedListener {
-        fun onListItemSelected(shop: Shop)
+        fun onListItemSelected(model: Model)
     }
 }// Required empty public constructor

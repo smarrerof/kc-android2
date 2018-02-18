@@ -7,44 +7,45 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.R.string.shops
+import com.sergiomarrero.madridshops.domain.model.Model
+import com.sergiomarrero.madridshops.domain.model.Models
 import com.sergiomarrero.madridshops.util.TranslationManager
 import com.squareup.picasso.Picasso
 
 
-class ShopRecyclerViewAdapter(val shops: Shops?): RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+class ModelRecyclerViewAdapter(val models: Models?): RecyclerView.Adapter<ModelRecyclerViewAdapter.ModelViewHolder>() {
     var onClickListener: View.OnClickListener? = null
 
     // ViewHolder
-    inner class ShopViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ModelViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val image = itemView.findViewById<ImageView>(R.id.imageLogo)
         val name = itemView.findViewById<TextView>(R.id.textName)
         val openingHours = itemView.findViewById<TextView>(R.id.textOpeningHours)
 
-        fun bindShop(shop: Shop) {
+        fun bindShop(model: Model) {
             Picasso
                 .with(itemView.context)
-                .load(shop.logoImage)
+                .load(model.logoImage)
                 .into(image)
 
-            name.text = shop.name
-            openingHours.text = TranslationManager.getOpeningHours(shop)
+            name.text = model.name
+            openingHours.text = TranslationManager.getOpeningHours(model)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ModelViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_shop, parent, false)
         view.setOnClickListener(onClickListener)
-        return ShopViewHolder(view)
+        return ModelViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ShopViewHolder?, position: Int) {
-        if (shops != null) {
-            holder?.bindShop(shops.get(position))
+    override fun onBindViewHolder(holder: ModelViewHolder?, position: Int) {
+        if (models != null) {
+            holder?.bindShop(models.get(position))
         }
     }
 
-    override fun getItemCount() = shops?.count() ?: 0
+    override fun getItemCount() = models?.count() ?: 0
 }

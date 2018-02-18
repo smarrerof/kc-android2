@@ -12,10 +12,15 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "MADRID_SHOPS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "API_SHOPS_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "API_ACTIVITIES_URL", "\"https://madrid-shops.com/json_new/getActivities.php\""
+
+
         }
         release {
-            buildConfigField "String", "MADRID_SHOPS_SERVER_URL", "\"https://madridshops.heroku.com/\""
+            buildConfigField "String", "API_SHOPS_URL", "\"https://madridshops.heroku.com\""
+            buildConfigField "String", "API_ACTIVITIES_URL", "\"https://madrid-shops.com/json_new/getActivities.php\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

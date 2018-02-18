@@ -8,27 +8,27 @@ import android.widget.ImageView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.domain.model.Shop
+import com.sergiomarrero.madridshops.domain.model.Model
 import com.sergiomarrero.madridshops.util.TranslationManager
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.info_window_shop.view.*
+import kotlinx.android.synthetic.main.info_window_model.view.*
 
 
-class ShopInfoWindowAdapter(val context: Context): GoogleMap.InfoWindowAdapter  {
+class ModelInfoWindowAdapter(val context: Context): GoogleMap.InfoWindowAdapter  {
 
     override fun getInfoContents(marker: Marker): View {
-        val view = LayoutInflater.from(context).inflate(R.layout.info_window_shop, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.info_window_model, null)
 
-        val shop = marker.tag as Shop
+        val model = marker.tag as Model
 
         Picasso
                 .with(context)
-                .load(shop.logoImage)
-                .into(view.imageLogo, MarkerCallback(marker, context, shop.logoImage,view.imageLogo))
+                .load(model.logoImage)
+                .into(view.imageLogo, MarkerCallback(marker, context, model.logoImage,view.imageLogo))
 
-        view.textName.text = shop.name
-        view.textOpeningHours.text = TranslationManager.getOpeningHours(shop)
+        view.textName.text = model.name
+        view.textOpeningHours.text = TranslationManager.getOpeningHours(model)
 
         return view
     }

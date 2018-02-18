@@ -5,8 +5,8 @@ import android.content.res.Resources
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.router.Router.Companion.INTENT_SHOP
+import com.sergiomarrero.madridshops.domain.model.Model
+import com.sergiomarrero.madridshops.router.Router.Companion.INTENT_MODEL
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 import android.util.DisplayMetrics
@@ -21,7 +21,7 @@ class ShopDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shop_detail)
 
         // Get shop from intent
-        val shop = intent.getSerializableExtra(INTENT_SHOP) as Shop
+        val shop = intent.getSerializableExtra(INTENT_MODEL) as Model
 
         // Configure UI
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

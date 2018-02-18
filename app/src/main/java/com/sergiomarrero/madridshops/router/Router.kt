@@ -5,13 +5,13 @@ import com.sergiomarrero.madridshops.activity.MainActivity
 import com.sergiomarrero.madridshops.activity.ShopListActivity
 import com.sergiomarrero.madridshops.activity.PicassoActivity
 import com.sergiomarrero.madridshops.activity.ShopDetailActivity
-import com.sergiomarrero.madridshops.domain.model.Shop
+import com.sergiomarrero.madridshops.domain.model.Model
 
 
 class Router {
 
     companion object {
-        val INTENT_SHOP = "INTENT_SHOP"
+        val INTENT_MODEL = "INTENT_MODEL"
     }
 
     fun navigateFromMainActivityToPicassoActivity(shopList: ShopListActivity) {
@@ -24,9 +24,9 @@ class Router {
     }
 
 
-    fun navigateToShopDetailActivity(shopList: ShopListActivity, shop: Shop) {
+    fun navigateToShopDetailActivity(shopList: ShopListActivity, model: Model) {
         val intent = Intent(shopList, ShopDetailActivity::class.java)
-        intent.putExtra(INTENT_SHOP, shop)
+        intent.putExtra(INTENT_MODEL, model)
         shopList.startActivity(intent)
     }
 }

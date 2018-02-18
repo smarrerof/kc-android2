@@ -1,38 +1,39 @@
-package com.sergiomarrero.madridshops.domain.interactor.getallshops
+package com.sergiomarrero.madridshops.domain.interactor.getallmodels
 
 import android.content.Context
 import android.util.Log
 import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
-import com.sergiomarrero.madridshops.domain.model.Shop
-import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.domain.model.Model
+import com.sergiomarrero.madridshops.domain.model.Models
 import com.sergiomarrero.madridshops.domain.model.Type
 import com.sergiomarrero.madridshops.repository.Repository
 import com.sergiomarrero.madridshops.repository.RepositoryImpl
-import com.sergiomarrero.madridshops.repository.model.ShopEntity
+import com.sergiomarrero.madridshops.repository.model.Entity
 import java.lang.ref.WeakReference
 
-class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
+
+class GetAllModelsInteractorImpl(context: Context): GetAllModelsInteractor {
     private val weakContext = WeakReference<Context>(context)
     private val repository: Repository = RepositoryImpl(weakContext.get()!!)
 
-    override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
-        Log.e("App", "GetAllShopsInteractorImpl:execute")
-        repository.getAllShops({
-            val shops: Shops = entityMapper(it)
-            success.successCompletion(shops)
+    override fun execute(type: Type, success: SuccessCompletion<Models>, error: ErrorCompletion) {
+        Log.e("App", "GetAllModelsInteractorImpl:execute")
+        repository.getAllEntities(type.value, {
+            val models: Models = entityMapper(it)
+            success.successCompletion(models)
         }, {
             error(it)
         })
     }
 
-    private fun entityMapper(list: List<ShopEntity>): Shops {
-        val tempList = ArrayList<Shop>()
+    private fun entityMapper(list: List<Entity>): Models {
+        val tempList = ArrayList<Model>()
 
         list.forEach({
             try {
-                val shop = Shop(it.id.toInt(),
-                        Type.SHOP,
+                val shop = Model(it.id.toInt(),
+                        Type.values()[it.type] ,
                         it.name,
                         it.image,
                         it.logoImage,
@@ -46,12 +47,12 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
                 tempList.add(shop)
             } catch (e: Exception) {
                 // Do nothing
-                Log.e("App", "Error parsing shop ${it.name} (id, ${it.id}) with position (${it.latitude}, ${it.longitude})")
+                Log.e("App", "Error parsing model ${it.name} (id, ${it.id}) with position (${it.latitude}, ${it.longitude})")
             }
         })
 
-        val shops = Shops(tempList)
-        return shops
+        val models = Models(tempList)
+        return models
     }
 
     private fun stringToDouble(value: String): Double {

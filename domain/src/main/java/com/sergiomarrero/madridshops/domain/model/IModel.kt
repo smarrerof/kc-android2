@@ -3,6 +3,7 @@ package com.sergiomarrero.madridshops.domain.model
 
 interface IModel {
     val id: Int
+    val type: Type
     val name: String
 
     val image: String
@@ -18,4 +19,9 @@ interface IModel {
 
     val latitude: Double
     val longitude: Double
+}
+
+enum class Type(val value: Int) {
+    SHOP(1),
+    ANTIVITY(2)
 }

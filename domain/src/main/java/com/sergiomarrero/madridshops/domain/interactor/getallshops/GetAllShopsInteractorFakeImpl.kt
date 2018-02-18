@@ -6,6 +6,7 @@ import com.sergiomarrero.madridshops.domain.interactor.SuccessClosure
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.model.Shop
 import com.sergiomarrero.madridshops.domain.model.Shops
+import com.sergiomarrero.madridshops.domain.model.Type
 
 
 class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
@@ -43,6 +44,7 @@ class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
 
         for (i in 1..100) {
             val shop = Shop(i,
+                    Type.SHOP,
                     "Shop${i}",
                     "http://via.placeholder.com/400x150",
                     "http://via.placeholder.com/150x150",

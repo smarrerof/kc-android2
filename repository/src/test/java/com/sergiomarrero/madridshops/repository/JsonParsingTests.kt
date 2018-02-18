@@ -1,7 +1,5 @@
 package com.sergiomarrero.madridshops.repository
 
-import com.sergiomarrero.madridshops.repository.model.ShopEntity
-import com.sergiomarrero.madridshops.repository.model.ShopsResponseEntity
 import com.sergiomarrero.madridshops.repository.network.json.JsonEntitiesParser
 import com.sergiomarrero.madridshops.repository.util.ReadJsonFile
 import org.junit.Assert.*

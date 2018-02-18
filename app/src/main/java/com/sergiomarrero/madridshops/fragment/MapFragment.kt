@@ -58,7 +58,7 @@ class MapFragment : Fragment() {
     }
 
 
-    fun setShops(models: Models) {
+    fun setModels(models: Models) {
         this.models = models
         initializeMap(models)
     }

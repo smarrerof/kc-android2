@@ -46,7 +46,7 @@ class ListFragment : Fragment() {
     }
 
 
-    fun setShops(models: Models) {
+    fun setModels(models: Models) {
         this.models = models
 
         // Configure recyclerView

@@ -39,9 +39,7 @@ class EntityDAO(val dbHelper: DBHelper): DAOPersistable<Entity> {
     }
 
     override fun insert(element: Entity): Long {
-        var id: Long = 0
-
-        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP,
+        val id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP,
                 null,
                 contentValues(element))
 

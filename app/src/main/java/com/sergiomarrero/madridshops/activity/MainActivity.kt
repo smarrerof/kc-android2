@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.sergiomarrero.madridshops.R
 import com.sergiomarrero.madridshops.domain.interactor.internetstatus.InternetStatusInteractorImpl
+import com.sergiomarrero.madridshops.domain.model.Type
 import com.sergiomarrero.madridshops.router.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,7 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         buttonShopList.setOnClickListener {
-            Router().navigateToShopListActivity(this)
+            Router().navigateToModelListActivity(this, Type.SHOP)
+        }
+        buttonActivityList.setOnClickListener {
+            Router().navigateToModelListActivity(this, Type.ANTIVITY)
         }
     }
 

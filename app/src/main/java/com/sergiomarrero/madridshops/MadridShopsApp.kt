@@ -32,8 +32,8 @@ class MadridShopsApp: MultiDexApplication() {
             }
         })*/
 
-        /*DeleteAllShopsImpl(this).execute({
-            Log.d("App", "DeleteAllShopsImpl success")
+        /*DeleteAllModelsImpl(this).execute({
+            Log.d("App", "DeleteAllModelsImpl success")
         }, { errorMessage ->
             Log.d("App", errorMessage)
         })*/

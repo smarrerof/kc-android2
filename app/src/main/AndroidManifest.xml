@@ -47,10 +47,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ShopListActivity"
+            android:name=".activity.ModelListActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.PicassoActivity" />
-        <activity android:name=".activity.ShopDetailActivity" />
+        <activity android:name=".activity.ModelDetailActivity" />
 
     </application>
 

@@ -25,7 +25,7 @@ data class Model(override val id: Int,
                 override val longitude: Double): IModel, Serializable {
 
     init {
-        Shops(ArrayList<Shop>())
+        Models(ArrayList<Model>())
     }
 }
 

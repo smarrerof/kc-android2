@@ -5,8 +5,6 @@ import com.sergiomarrero.madridshops.repository.cache.Cache
 import com.sergiomarrero.madridshops.repository.cache.CacheImpl
 import com.sergiomarrero.madridshops.repository.model.EntitiesResponse
 import com.sergiomarrero.madridshops.repository.model.Entity
-import com.sergiomarrero.madridshops.repository.model.ShopEntity
-import com.sergiomarrero.madridshops.repository.model.ShopsResponseEntity
 import com.sergiomarrero.madridshops.repository.network.GetJsonManager
 import com.sergiomarrero.madridshops.repository.network.GetJsonManagerVolleyImpl
 import com.sergiomarrero.madridshops.repository.network.json.JsonEntitiesParser
@@ -16,61 +14,21 @@ class RepositoryImpl(context: Context): Repository {
     private val weakContext = WeakReference<Context>(context)
     private val cache: Cache = CacheImpl(weakContext.get()!!)
 
-    override fun getAllShops(success: (shops: List<ShopEntity>) -> Unit, error: (errorMessage: String) -> Unit) {
-        cache.getAllShops({ shops ->
-            // Read all shops from cache -> return them
-            success(shops)
-        }, { error ->
-            // If no shops in cache -> network
-            populateCache(success, error)
-        })
-    }
-
-    override fun deleteAllShops(success: () -> Unit, error: (errorMessage: String) -> Unit) {
-        cache.deleteAllShops(success, error)
-    }
-
 
     override fun getAllEntities(type: Int, success: (entities: List<Entity>) -> Unit, error: (errorMessage: String) -> Unit) {
         cache.getAllEntities(type, { entities ->
             // Read all shops from cache -> return them
             success(entities)
-        }, { error ->
+        }, {
             // If no shops in cache -> network
-            populateCache(type, success, error)
+            populateCache(type, success, it)
         })
     }
 
-
-    private fun populateCache(success: (shops: List<ShopEntity>) -> Unit, error: String) {
-        var jsonManager: GetJsonManager = GetJsonManagerVolleyImpl(weakContext.get()!!)
-        jsonManager.execute(BuildConfig.API_SHOPS_URL,
-        object: SuccessCompletion<String> {
-            override fun successCompletion(e: String) {
-                // Parse response
-                val parser = JsonEntitiesParser()
-                var response: ShopsResponseEntity
-                try {
-                    response = parser.parse<ShopsResponseEntity>(e)
-                } catch (e: Exception) {
-                    error("Error parsing!")
-                    return
-                }
-
-                // Store result in cache
-                cache.saveAllShops(response.result, {
-                    success(response.result)
-                }, {
-                    error("Something was wrong!")
-                })
-            }
-
-        }, object: ErrorCompletion {
-            override fun errorCompletion(errorMessage: String) {
-
-            }
-        })
+    override fun deleteAllEntities(success: () -> Unit, error: (errorMessage: String) -> Unit) {
+        cache.deleteAllEntities(success, error)
     }
+
 
     private fun populateCache(type: Int, success: (shops: List<Entity>) -> Unit, error: String) {
         val jsonManager: GetJsonManager = GetJsonManagerVolleyImpl(weakContext.get()!!)
@@ -103,7 +61,6 @@ class RepositoryImpl(context: Context): Repository {
 
                         } catch (e: Exception) {
                             error("RepositoryImp:populateCache - Error parsing!")
-                            return
                         }
 
                         // Store result in cache
@@ -123,8 +80,8 @@ class RepositoryImpl(context: Context): Repository {
 
     private fun getTypeUrl(type: Int): String {
         return when (type) {
-            1 -> BuildConfig.API_SHOPS_URL
-            2 -> BuildConfig.API_ACTIVITIES_URL
+            0 -> BuildConfig.API_SHOPS_URL
+            1 -> BuildConfig.API_ACTIVITIES_URL
             else -> ""
         }
     }

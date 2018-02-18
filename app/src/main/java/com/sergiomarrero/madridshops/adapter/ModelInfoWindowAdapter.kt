@@ -25,7 +25,7 @@ class ModelInfoWindowAdapter(val context: Context): GoogleMap.InfoWindowAdapter 
         Picasso
                 .with(context)
                 .load(model.logoImage)
-                .into(view.imageLogo, MarkerCallback(marker, context, model.logoImage,view.imageLogo))
+                .into(view.imageLogo, MarkerCallback(marker, context, model.logoImage, view.imageLogo))
 
         view.textName.text = model.name
         view.textOpeningHours.text = TranslationManager.getOpeningHours(model)

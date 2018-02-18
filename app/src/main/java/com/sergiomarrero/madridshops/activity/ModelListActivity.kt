@@ -16,26 +16,29 @@ import com.sergiomarrero.madridshops.domain.model.*
 import com.sergiomarrero.madridshops.fragment.ListFragment
 import com.sergiomarrero.madridshops.fragment.MapFragment
 import com.sergiomarrero.madridshops.router.Router
+import com.sergiomarrero.madridshops.router.Router.Companion.INTENT_TYPE
 
 
-class ShopListActivity : AppCompatActivity(),
+class ModelListActivity : AppCompatActivity(),
         ListFragment.OnListItemSelectedListener,
         MapFragment.OnMapItemSelectedListener {
 
+    private var type: Type? = null
     lateinit var mapFragment: MapFragment
     lateinit var listFragment: ListFragment
     lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shop_list)
+        setContentView(R.layout.activity_model_list)
 
-        Log.d("App", "ShopListActivity:onCreate")
+        Log.d("App", "ModelListActivity:onCreate")
 
+        type = Type.values()[intent.getSerializableExtra(INTENT_TYPE) as Int]
         mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as MapFragment
         listFragment = supportFragmentManager.findFragmentById(R.id.listFragment) as ListFragment
 
-        loadShops()
+        loadEntities()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -60,44 +63,27 @@ class ShopListActivity : AppCompatActivity(),
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> {
-                Router().navigateFromMainActivityToPicassoActivity(this)
-                true
-            }
+            R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onListItemSelected(model: Model) {
-        Router().navigateToShopDetailActivity(this, model)
+        Router().navigateToModelDetailActivity(this, model)
     }
 
     override fun onMapItemSelected(model: Model) {
-        Router().navigateToShopDetailActivity(this, model)
+        Router().navigateToModelDetailActivity(this, model)
     }
 
 
-    private fun loadShops() {
-        /*val getAllShopsInteractor: GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
-        getAllShopsInteractor.execute(object: SuccessCompletion<Shops> {
-            override fun successCompletion(shops: Shops) {
-                mapFragment.setShops(shops)
-                listFragment.setShops(shops)
-            }
-        }, object: ErrorCompletion {
-            override fun errorCompletion(errorMessage: String) {
-                Toast
-                    .makeText(baseContext, "Error loading shops!", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })*/
-
+    private fun loadEntities() {
         val getAllModelsInteractor: GetAllModelsInteractor = GetAllModelsInteractorImpl(this)
-        getAllModelsInteractor.execute(Type.SHOP, object: SuccessCompletion<Models> {
+        getAllModelsInteractor.execute(type!!, object: SuccessCompletion<Models> {
             override fun successCompletion(models: Models) {
                 Log.d("App", "Models loaded")
-                mapFragment.setShops(models)
-                listFragment.setShops(models)
+                mapFragment.setModels(models)
+                listFragment.setModels(models)
             }
         }, object: ErrorCompletion {
             override fun errorCompletion(errorMessage: String) {

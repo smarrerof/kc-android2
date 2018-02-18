@@ -22,6 +22,6 @@ interface IModel {
 }
 
 enum class Type(val value: Int) {
-    SHOP(1),
-    ANTIVITY(2)
+    SHOP(0),
+    ANTIVITY(1)
 }

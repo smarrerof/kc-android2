@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sergiomarrero.madridshops.R
-import com.sergiomarrero.madridshops.R.string.shops
 import com.sergiomarrero.madridshops.domain.model.Model
 import com.sergiomarrero.madridshops.domain.model.Models
 import com.sergiomarrero.madridshops.util.TranslationManager
@@ -24,7 +23,7 @@ class ModelRecyclerViewAdapter(val models: Models?): RecyclerView.Adapter<ModelR
         val name = itemView.findViewById<TextView>(R.id.textName)
         val openingHours = itemView.findViewById<TextView>(R.id.textOpeningHours)
 
-        fun bindShop(model: Model) {
+        fun bindModel(model: Model) {
             Picasso
                 .with(itemView.context)
                 .load(model.logoImage)
@@ -36,14 +35,14 @@ class ModelRecyclerViewAdapter(val models: Models?): RecyclerView.Adapter<ModelR
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ModelViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_shop, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_model, parent, false)
         view.setOnClickListener(onClickListener)
         return ModelViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ModelViewHolder?, position: Int) {
         if (models != null) {
-            holder?.bindShop(models.get(position))
+            holder?.bindModel(models.get(position))
         }
     }
 

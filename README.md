@@ -34,3 +34,7 @@ Run and enjoy the app in your favorite emulator or in your device.
 1. SQLite is used as cache. Shops and actvities are saved in SQLite when the app runs for the firt time. Logo, images and static map for each Shop/Activity are cached by [Picasso](http://square.github.io/picasso/).
 2. Shop/Activity list and detail is shown with only one Activity. 
 
+### Demo
+![MadridShops Demo](https://github.com/smarrerof/kc-android2/blob/master/android_advaced_demo.gif?raw=true)
+
+

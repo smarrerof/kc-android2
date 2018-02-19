@@ -5,28 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <RelativeLayout
         android:id="@+id/buttonShopList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/shops"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageLogo">
 
-    <Button
+        <ImageButton
+            android:id="@+id/imageShopList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/button_shops_enabled" />
+
+        <TextView
+            android:id="@+id/textShopList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="bottom|right"
+            android:text="@string/shops"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:layout_alignLeft="@id/imageShopList"
+            android:layout_alignTop="@id/imageShopList"
+            android:layout_alignRight="@id/imageShopList"
+            android:layout_alignBottom="@id/imageShopList" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/buttonActivityList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/activities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonShopList" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonShopList">
+
+        <ImageButton
+            android:id="@+id/imageActivityList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/button_activities_enabled" />
+
+        <TextView
+            android:id="@+id/textActivityList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imageActivityList"
+            android:layout_alignLeft="@id/imageActivityList"
+            android:layout_alignRight="@id/imageActivityList"
+            android:layout_alignTop="@id/imageActivityList"
+            android:layout_margin="4dp"
+            android:gravity="bottom|right"
+            android:text="@string/activities"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

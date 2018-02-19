@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        buttonShopList.setOnClickListener {
+        imageShopList.setOnClickListener {
             Router().navigateToModelListActivity(this, Type.SHOP)
         }
-        buttonActivityList.setOnClickListener {
+        imageActivityList.setOnClickListener {
             Router().navigateToModelListActivity(this, Type.ANTIVITY)
         }
     }
@@ -74,8 +74,17 @@ class MainActivity : AppCompatActivity() {
         if (menu != null) {
             menu?.findItem(R.id.action_retry)?.isVisible = !isConnected
         }
-        buttonShopList.isEnabled = isConnected
-        buttonActivityList.isEnabled = isConnected
+        imageShopList.isEnabled = isConnected
+        imageShopList.setImageResource(when (isConnected) {
+            true -> R.drawable.button_shops_enabled
+            else -> R.drawable.button_shops_disabled
+        })
+        imageActivityList.isEnabled = isConnected
+        imageActivityList.setImageResource(when (isConnected) {
+            true -> R.drawable.button_activities_enabled
+            else -> R.drawable.button_activities_disabled
+        })
+
     }
 
 }

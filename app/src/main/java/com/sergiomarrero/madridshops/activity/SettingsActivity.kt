@@ -38,7 +38,7 @@ class SettingsActivity : AppCompatActivity() {
                 val deleteAllModelsInteractor: DeleteAllModels = DeleteAllModelsImpl(this)
                 deleteAllModelsInteractor.execute({
                     Toast
-                            .makeText(baseContext, "Cache deleted successfully!", Toast.LENGTH_SHORT)
+                            .makeText(baseContext, getString(R.string.cache_deleted_successfully), Toast.LENGTH_SHORT)
                             .show()
                     count(Type.SHOP, textShopRecords)
                     count(Type.ANTIVITY, textActivityRecords)

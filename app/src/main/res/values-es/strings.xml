@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MadridShops</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="shops">Tiendas</string>
+    <string name="activities">Actividades</string>
+    <string name="cache_information_title">Información de la caché</string>
+    <string name="shops_in_cache">Tiendas en caché:</string>
+    <string name="activities_in_cache">Actividades en caché:</string>
+    <string name="delete_all_records">Borrar todos los registros</string>
+    <string name="confirm_cache_delete_title">Por favor, confirme</string>
+    <string name="confirm_cache_delete_message">¿Está seguro que quiere borrar todos los registros de la caché?</string>
+    <string name="yes">SI</string>
+    <string name="no">NO</string>
+    <string name="internet_connection_error">Error de conexión a Internet</string>
+    <string name="cache_deleted_successfully">¡Cache borrada con éxito!</string>
+</resources>

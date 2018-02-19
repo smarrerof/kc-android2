@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }, {
             isConnected = false
             configureUI()
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.internet_connection_error), Toast.LENGTH_LONG).show()
         })
     }
 
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             menu?.findItem(R.id.action_retry)?.isVisible = !isConnected
         }
         buttonShopList.isEnabled = isConnected
+        buttonActivityList.isEnabled = isConnected
     }
 
 }

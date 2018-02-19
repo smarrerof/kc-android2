@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MadridShops</string>
     <string name="action_settings">Settings</string>
-    <string name="action_retry">Reintentar</string>
+    <string name="action_retry">Retry</string>
     <string name="shops">Shops</string>
     <string name="activities">Activities</string>
     <string name="cache_information_title">Cache information</string>
@@ -12,4 +12,6 @@
     <string name="confirm_cache_delete_message">Are you sure that you want to delete all the records in cache?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="internet_connection_error">Internet connection error</string>
+    <string name="cache_deleted_successfully">Cache deleted successfully!</string>
 </resources>

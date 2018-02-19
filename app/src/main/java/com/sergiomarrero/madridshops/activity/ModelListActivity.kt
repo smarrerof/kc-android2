@@ -17,11 +17,17 @@ import com.sergiomarrero.madridshops.fragment.ListFragment
 import com.sergiomarrero.madridshops.fragment.MapFragment
 import com.sergiomarrero.madridshops.router.Router
 import com.sergiomarrero.madridshops.router.Router.Companion.INTENT_TYPE
+import kotlinx.android.synthetic.main.activity_model_list.*
 
 
 class ModelListActivity : AppCompatActivity(),
         ListFragment.OnListItemSelectedListener,
         MapFragment.OnMapItemSelectedListener {
+
+    enum class VIEW_INDEX(val index: Int) {
+        LOADING(0),
+        READY(1)
+    }
 
     private var type: Type? = null
     lateinit var mapFragment: MapFragment
@@ -33,6 +39,7 @@ class ModelListActivity : AppCompatActivity(),
         setContentView(R.layout.activity_model_list)
 
         Log.d("App", "ModelListActivity:onCreate")
+        viewSwitcher.displayedChild = VIEW_INDEX.LOADING.index
 
         type = Type.values()[intent.getSerializableExtra(INTENT_TYPE) as Int]
         mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as MapFragment
@@ -82,6 +89,8 @@ class ModelListActivity : AppCompatActivity(),
         getAllModelsInteractor.execute(type!!, object: SuccessCompletion<Models> {
             override fun successCompletion(models: Models) {
                 Log.d("App", "Models loaded")
+                viewSwitcher.displayedChild = VIEW_INDEX.READY.index
+
                 mapFragment.setModels(models)
                 listFragment.setModels(models)
             }

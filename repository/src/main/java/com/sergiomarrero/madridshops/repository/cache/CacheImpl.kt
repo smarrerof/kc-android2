@@ -52,6 +52,15 @@ class CacheImpl(context: Context): Cache {
         }).run()
     }
 
+    override fun countAllEntities(type: Int, success: (count: Long) -> Unit, error: (errorMessage: String) -> Unit) {
+        Thread(Runnable {
+            var result = EntityDAO(cacheDBHelper()).count(type)
+            DispatchOnMainThread(Runnable {
+                success(result)
+            })
+        }).run()
+    }
+
 
     private fun cacheDBHelper(): DBHelper {
         return buildDBHelper(context.get() !!, "MadridShops.sqlite", 1)

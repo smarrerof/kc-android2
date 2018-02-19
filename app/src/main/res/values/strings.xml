@@ -4,4 +4,12 @@
     <string name="action_retry">Reintentar</string>
     <string name="shops">Shops</string>
     <string name="activities">Activities</string>
+    <string name="cache_information_title">Cache information</string>
+    <string name="shops_in_cache">Shops in cache:</string>
+    <string name="activities_in_cache">Activities in cache:</string>
+    <string name="delete_all_records">Delete all records</string>
+    <string name="confirm_cache_delete_title">Please, confirm</string>
+    <string name="confirm_cache_delete_message">Are you sure that you want to delete all the records in cache?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 </resources>

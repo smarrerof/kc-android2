@@ -29,6 +29,10 @@ class RepositoryImpl(context: Context): Repository {
         cache.deleteAllEntities(success, error)
     }
 
+    override fun countAllEntities(type: Int, success: (count: Long) -> Unit, error: (errorMessage: String) -> Unit) {
+        cache.countAllEntities(type, success, error)
+    }
+
 
     private fun populateCache(type: Int, success: (shops: List<Entity>) -> Unit, error: String) {
         val jsonManager: GetJsonManager = GetJsonManagerVolleyImpl(weakContext.get()!!)

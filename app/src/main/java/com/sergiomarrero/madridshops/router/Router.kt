@@ -4,6 +4,7 @@ import android.content.Intent
 import com.sergiomarrero.madridshops.activity.MainActivity
 import com.sergiomarrero.madridshops.activity.ModelListActivity
 import com.sergiomarrero.madridshops.activity.ModelDetailActivity
+import com.sergiomarrero.madridshops.activity.SettingsActivity
 import com.sergiomarrero.madridshops.domain.model.Model
 import com.sergiomarrero.madridshops.domain.model.Type
 
@@ -15,6 +16,10 @@ class Router {
         val INTENT_MODEL = "INTENT_MODEL"
     }
 
+    fun navigateToSettingsActivity(main: MainActivity) {
+        val intent = Intent(main, SettingsActivity::class.java)
+        main.startActivity(intent)
+    }
 
     fun navigateToModelListActivity(main: MainActivity, type: Type) {
         val intent = Intent(main, ModelListActivity::class.java)

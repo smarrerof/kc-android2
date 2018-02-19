@@ -2,6 +2,7 @@ package com.sergiomarrero.madridshops.repository.db.dao
 
 import android.content.ContentValues
 import android.database.Cursor
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import com.sergiomarrero.madridshops.repository.db.DBConstants
 import com.sergiomarrero.madridshops.repository.db.DBHelper
@@ -36,6 +37,13 @@ class EntityDAO(val dbHelper: DBHelper): DAOPersistable<Entity> {
         }
 
         return queryResult
+    }
+
+    override fun count(type: Int): Long {
+        return DatabaseUtils.queryNumEntries(dbReadOnlyConection,
+            DBConstants.TABLE_SHOP,
+            "${DBConstants.KEY_SHOP_TYPE} = ?",
+            arrayOf(type.toString()))
     }
 
     override fun insert(element: Entity): Long {

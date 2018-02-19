@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
                 checkInternetStatus()
                 true
             }
+            R.id.action_settings -> {
+                Router().navigateToSettingsActivity(this)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

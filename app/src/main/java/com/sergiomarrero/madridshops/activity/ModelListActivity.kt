@@ -3,8 +3,6 @@ package com.sergiomarrero.madridshops.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.maps.GoogleMap
 import com.sergiomarrero.madridshops.R
@@ -32,7 +30,7 @@ class ModelListActivity : AppCompatActivity(),
     private var type: Type? = null
     lateinit var mapFragment: MapFragment
     lateinit var listFragment: ListFragment
-    lateinit var map: GoogleMap
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,17 +44,6 @@ class ModelListActivity : AppCompatActivity(),
         listFragment = supportFragmentManager.findFragmentById(R.id.listFragment) as ListFragment
 
         loadEntities()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 10) {
-            try {
-                map.isMyLocationEnabled = true
-            } catch(e: SecurityException) {
-
-            }
-        }
     }
 
     override fun onListItemSelected(model: Model) {

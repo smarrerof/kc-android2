@@ -30,8 +30,13 @@ import com.sergiomarrero.madridshops.domain.model.Models
  */
 class MapFragment : Fragment() {
 
+    companion object {
+        val REQUEST_MAP_PERMISSION = 10
+    }
+
     lateinit var root: View
     lateinit var mapFragment: SupportMapFragment
+    lateinit var map: GoogleMap
     private var onMapItemSelectedListener: OnMapItemSelectedListener? = null
     private var models: Models? = null
 
@@ -57,6 +62,17 @@ class MapFragment : Fragment() {
         onMapItemSelectedListener = null
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_MAP_PERMISSION) {
+            try {
+                map.isMyLocationEnabled = true
+            } catch(e: SecurityException) {
+
+            }
+        }
+    }
+
 
     fun setModels(models: Models) {
         this.models = models
@@ -67,6 +83,8 @@ class MapFragment : Fragment() {
     private fun initializeMap(models: Models) {
         mapFragment.getMapAsync {
             Log.d("App", "Habemus mapa!")
+            map = it
+
             centerMapInPosition(it, 40.416775, -3.703790)
             it.uiSettings.isRotateGesturesEnabled = false
             it.uiSettings.isZoomControlsEnabled = true
@@ -97,9 +115,11 @@ class MapFragment : Fragment() {
                 ActivityCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(activity,  arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 10)
+            requestPermissions(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), REQUEST_MAP_PERMISSION)
 
             return
+        } else {
+            map.isMyLocationEnabled = true
         }
     }
 

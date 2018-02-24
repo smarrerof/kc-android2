@@ -2,15 +2,13 @@ package com.sergiomarrero.madridshops.repository
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import android.util.Log
 import com.sergiomarrero.madridshops.repository.db.buildDBHelper
-import com.sergiomarrero.madridshops.repository.db.dao.ShopDAO
-import com.sergiomarrero.madridshops.repository.model.ShopEntity
-
+import com.sergiomarrero.madridshops.repository.db.dao.EntityDAO
+import com.sergiomarrero.madridshops.repository.model.Entity
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import org.junit.Assert.*
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -28,7 +26,8 @@ class ShopDAOTests {
     @Throws(Exception::class)
     fun given_valid_shopentity_it_gets_inserted_correctly() {
 
-        val shopEntity = ShopEntity(1,
+        val shopEntity = Entity(1,
+                1,
                 1,
                 "name",
                 "image",
@@ -41,7 +40,7 @@ class ShopDAOTests {
                 "1.0",
                 "1.0")
 
-        val shopEntityDAO = ShopDAO(dbHelper)
+        val shopEntityDAO = EntityDAO(dbHelper)
         val id = shopEntityDAO.insert(shopEntity)
 
         assertTrue(id > 0)

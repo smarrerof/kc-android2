@@ -36,7 +36,6 @@ class ModelListActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_model_list)
 
-        Log.d("App", "ModelListActivity:onCreate")
         viewSwitcher.displayedChild = VIEW_INDEX.LOADING.index
 
         type = Type.values()[intent.getSerializableExtra(INTENT_TYPE) as Int]
@@ -59,7 +58,6 @@ class ModelListActivity : AppCompatActivity(),
         val getAllModelsInteractor: GetAllModelsInteractor = GetAllModelsInteractorImpl(this)
         getAllModelsInteractor.execute(type!!, object: SuccessCompletion<Models> {
             override fun successCompletion(models: Models) {
-                Log.d("App", "Models loaded")
                 viewSwitcher.displayedChild = VIEW_INDEX.READY.index
 
                 mapFragment.setModels(models)

@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 import com.sergiomarrero.madridshops.R
 import com.sergiomarrero.madridshops.adapter.ModelInfoWindowAdapter
+import com.sergiomarrero.madridshops.common.util.Constants
 import com.sergiomarrero.madridshops.domain.model.Model
 import com.sergiomarrero.madridshops.domain.model.Models
 
@@ -82,7 +83,7 @@ class MapFragment : Fragment() {
 
     private fun initializeMap(models: Models) {
         mapFragment.getMapAsync {
-            Log.d("App", "Habemus mapa!")
+            Log.d(Constants.TAG, "Map initialized!")
             map = it
 
             centerMapInPosition(it, 40.416775, -3.703790)
@@ -94,7 +95,7 @@ class MapFragment : Fragment() {
             addAllPins(it, models)
 
             it.setOnInfoWindowClickListener {
-                var model = it.tag as Model
+                val model = it.tag as Model
                 onMapItemSelectedListener?.onMapItemSelected(model)
             }
         }

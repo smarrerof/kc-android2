@@ -2,6 +2,7 @@ package com.sergiomarrero.madridshops.domain.interactor.getallmodels
 
 import android.content.Context
 import android.util.Log
+import com.sergiomarrero.madridshops.common.util.Constants
 import com.sergiomarrero.madridshops.domain.interactor.ErrorCompletion
 import com.sergiomarrero.madridshops.domain.interactor.SuccessCompletion
 import com.sergiomarrero.madridshops.domain.model.Model
@@ -18,7 +19,6 @@ class GetAllModelsInteractorImpl(context: Context): GetAllModelsInteractor {
     private val repository: Repository = RepositoryImpl(weakContext.get()!!)
 
     override fun execute(type: Type, success: SuccessCompletion<Models>, error: ErrorCompletion) {
-        Log.e("App", "GetAllModelsInteractorImpl:execute")
         repository.getAllEntities(type.value, {
             val models: Models = entityMapper(it)
             success.successCompletion(models)
@@ -47,7 +47,7 @@ class GetAllModelsInteractorImpl(context: Context): GetAllModelsInteractor {
                 tempList.add(shop)
             } catch (e: Exception) {
                 // Do nothing
-                Log.e("App", "Error parsing model ${it.name} (id, ${it.id}) with position (${it.latitude}, ${it.longitude})")
+                Log.e(Constants.TAG, "Error parsing model ${it.name} (id, ${it.id}) with position (${it.latitude}, ${it.longitude})")
             }
         })
 

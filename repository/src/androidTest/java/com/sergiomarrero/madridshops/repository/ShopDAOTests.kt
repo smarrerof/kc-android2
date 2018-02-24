@@ -46,49 +46,4 @@ class ShopDAOTests {
 
         assertTrue(id > 0)
     }
-
-    // TODO Convert into a valid test
-    private fun test() {
-        // Never ever!!!
-        val dbHelper = buildDBHelper(appContext,
-                "mydb.sqlite",
-                1)
-
-        val shopEntityDAO = ShopDAO(dbHelper)
-
-        val deleteAll = shopEntityDAO.deleteAll()
-
-        val shopEntity1 = ShopEntity(1,
-                1,
-                "name",
-                "image",
-                "logo image",
-                "opening hours en",
-                "opening hours es",
-                "address",
-                "description en",
-                "description es",
-                "1.0",
-                "1.0")
-
-        val shopEntity2 = ShopEntity(1,
-                1,
-                "name",
-                "image",
-                "logo image",
-                "opening hours en",
-                "opening hours es",
-                "address",
-                "description en",
-                "description es",
-                "1.0",
-                "1.0")
-
-        val id1 = shopEntityDAO.insert(shopEntity1)
-        val id2 = shopEntityDAO.insert(shopEntity2)
-
-        shopEntityDAO.query().forEach {
-            Log.d("App", it.name)
-        }
-    }
 }

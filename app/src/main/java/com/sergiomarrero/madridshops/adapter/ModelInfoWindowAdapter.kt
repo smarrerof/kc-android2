@@ -8,6 +8,7 @@ import android.widget.ImageView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.sergiomarrero.madridshops.R
+import com.sergiomarrero.madridshops.common.util.Constants
 import com.sergiomarrero.madridshops.domain.model.Model
 import com.sergiomarrero.madridshops.util.TranslationManager
 import com.squareup.picasso.Callback
@@ -56,5 +57,5 @@ class MarkerCallback(val marker: Marker,
         }
     }
 
-    override fun onError() { Log.d("App", "MarkerCallback:onError - Error loading image") }
+    override fun onError() { Log.d(Constants.TAG, "MarkerCallback:onError - Error loading image") }
 }

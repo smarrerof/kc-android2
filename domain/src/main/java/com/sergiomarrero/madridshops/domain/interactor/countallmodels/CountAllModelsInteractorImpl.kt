@@ -15,7 +15,6 @@ class CountAllModelsInteractorImpl(context: Context): CountAllModelsInteractor {
     private val repository: Repository = RepositoryImpl(weakContext.get()!!)
 
     override fun execute(type: Type, success: SuccessCompletion<Long>, error: ErrorCompletion) {
-        Log.e("App", "CountAllModelsInteractorImpl:execute")
         repository.countAllEntities(type.value, {
             success.successCompletion(it)
         }, {

@@ -14,8 +14,6 @@ android {
         debug {
             buildConfigField "String", "API_SHOPS_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
             buildConfigField "String", "API_ACTIVITIES_URL", "\"https://madrid-shops.com/json_new/getActivities.php\""
-
-
         }
         release {
             buildConfigField "String", "API_SHOPS_URL", "\"https://madridshops.heroku.com\""
@@ -28,6 +26,9 @@ android {
 }
 
 dependencies {
+    // Custom modules
+    implementation project(':common')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:26.1.0'

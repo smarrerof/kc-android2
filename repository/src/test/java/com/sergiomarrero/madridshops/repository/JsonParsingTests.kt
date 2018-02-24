@@ -1,5 +1,7 @@
 package com.sergiomarrero.madridshops.repository
 
+import com.sergiomarrero.madridshops.repository.model.EntitiesResponse
+import com.sergiomarrero.madridshops.repository.model.Entity
 import com.sergiomarrero.madridshops.repository.network.json.JsonEntitiesParser
 import com.sergiomarrero.madridshops.repository.util.ReadJsonFile
 import org.junit.Assert.*
@@ -14,7 +16,7 @@ class JsonParsingTests {
 
         // parsing
         val parser = JsonEntitiesParser()
-        val shop = parser.parse<ShopEntity>(json)
+        val shop = parser.parse<Entity>(json)
 
         assertEquals("Cortefiel - Preciados", shop.name)
         assertEquals("40.4180563 ", shop.latitude)
@@ -28,7 +30,7 @@ class JsonParsingTests {
 
         // parsing
         val parser = JsonEntitiesParser()
-        val responseEntity = parser.parse<ShopsResponseEntity>(json)
+        val responseEntity = parser.parse<EntitiesResponse>(json)
 
         assertEquals(6, responseEntity.result.count())
         assertEquals("Cortefiel - Preciados", responseEntity.result[0].name)

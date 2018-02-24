@@ -26,6 +26,14 @@ To install the application clone this repository and open the project with Andro
 ```
 $ git clone https://github.com/smarrerof/kc-android2
 ```
+Create the "values resource file" google_maps_api_key (other names are valid as well)
+Add the key GOOGLE_MAPS_API_KEY and put your google maps api key there. For instance
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="GOOGLE_MAPS_API_KEY">...</string>
+</resources>
+```
 
 Run and enjoy the app in your favorite emulator or in your device.
 
